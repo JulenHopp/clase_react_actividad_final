@@ -18,18 +18,21 @@ function LoginPage() {
     const data = await res.json();
     if (res.ok) {
       localStorage.setItem('token', data.token); // 💾 Guardar token
-      navigate('/dashboard'); // 👈 Redirigir a una ruta protegida
+      navigate('/adminusuarios'); // 👈 Redirigir a una ruta protegida
     } else {
       alert(data.error || 'Error al iniciar sesión');
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-      <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" />
-      <button type="submit">Iniciar sesión</button>
-    </form>
+    <>
+        <p>ejmplo_email_valido: julen@gmail.com, Contraseña: 1234</p>
+        <form onSubmit={handleLogin}>
+        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+        <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" />
+        <button type="submit">Iniciar sesión</button>
+        </form>
+    </>
   );
 }
 

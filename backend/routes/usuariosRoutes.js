@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/usuariosController');
+const verifyToken = require('../middlewares/auth');
 
 /**
  * @swagger
@@ -11,7 +12,7 @@ const controller = require('../controllers/usuariosController');
  *       200:
  *         description: Lista de usuarios
  */
-router.get('/', controller.getUsuarios);
+router.get('/', verifyToken, controller.getUsuarios);
 
 /**
  * @swagger
@@ -22,7 +23,7 @@ router.get('/', controller.getUsuarios);
  *       200:
  *         description: Json con los datos del usuario
  */
-router.get('/:id', controller.getUsuario);
+router.get('/:id', verifyToken, controller.getUsuario);
 
 /**
  * @swagger
@@ -54,7 +55,7 @@ router.get('/:id', controller.getUsuario);
  *       400:
  *         description: Datos inválidos
  */
-router.post('/', controller.createUsuario);
+router.post('/', verifyToken, controller.createUsuario);
 
 /**
  * @swagger
@@ -86,7 +87,7 @@ router.post('/', controller.createUsuario);
  *       400:
  *         description: Datos inválidos
  */
-router.put('/:id', controller.updateUsuario);
+router.put('/:id', verifyToken, controller.updateUsuario);
 
 /**
  * @swagger
@@ -97,13 +98,14 @@ router.put('/:id', controller.updateUsuario);
  *       200:
  *         description: Elimina el usuario
  */
-router.delete('/:id', controller.deleteUsuario);
+router.delete('/:id', verifyToken, controller.deleteUsuario);
 
 /**
  * @swagger
  * /api/usuarios/login:
  *   post:
  *     summary: Hacer login y recibir un json web token
+ *     security: [] 
  *     requestBody:
  *       required: true
  *       content:
