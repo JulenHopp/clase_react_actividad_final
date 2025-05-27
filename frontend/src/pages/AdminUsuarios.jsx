@@ -16,7 +16,7 @@ export default function AdminUsuarios() {
   };
 
   const cargarUsuarios = async () => {
-    const res = await fetch('zjulen.azurewebsites.net:3000/api/usuarios', { headers });
+    const res = await fetch('zjulen.azurewebsites.net/api/usuarios', { headers });
     const data = await res.json();
     setUsuarios(data);
   };
@@ -29,8 +29,8 @@ export default function AdminUsuarios() {
     e.preventDefault();
 
     const url = editandoId
-      ? `zjulen.azurewebsites.net:3000/api/usuarios/${editandoId}`
-      : 'zjulen.azurewebsites.net:3000/api/usuarios';
+      ? `zjulen.azurewebsites.net/api/usuarios/${editandoId}`
+      : 'zjulen.azurewebsites.net/api/usuarios';
 
     const method = editandoId ? 'PUT' : 'POST';
 
@@ -50,7 +50,7 @@ export default function AdminUsuarios() {
   };
 
   const handleDelete = async (id) => {
-    const res = await fetch(`zjulen.azurewebsites.net:3000/api/usuarios/${id}`, {
+    const res = await fetch(`zjulen.azurewebsites.net/api/usuarios/${id}`, {
       method: 'DELETE',
       headers,
     });
