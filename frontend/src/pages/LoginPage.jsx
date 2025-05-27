@@ -9,7 +9,7 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch('zjulen.azurewebsites.net:3000/api/usuarios/login', {
+    const res = await fetch('zjulen.azurewebsites.net/api/usuarios/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

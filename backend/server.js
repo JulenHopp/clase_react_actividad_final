@@ -11,13 +11,18 @@ const PORT = process.env.PORT || 3000;
 
 // ✅ CORS con origen seguro en producción
 const corsOptions = {
-  origin: '*', // permite todo si no está definida
+  origin: '*', // puedes cambiar esto por process.env.FRONTEND_URL para mayor seguridad
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// ✅ Ruta general para comprobar si backend está vivo
+app.get('/', (req, res) => {
+  res.send('Backend corriendo en Azure 🚀');
+});
 
 // ✅ Documentación Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
