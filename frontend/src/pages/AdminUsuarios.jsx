@@ -17,7 +17,7 @@ export default function AdminUsuarios() {
   };
 
   const cargarUsuarios = async () => {
-    const res = await fetch(`${API_URL}/api/usuarios`, { headers });
+    const res = await fetch(`/api/usuarios`, { headers });
     const data = await res.json();
     setUsuarios(data);
   };
@@ -35,8 +35,8 @@ export default function AdminUsuarios() {
     e.preventDefault();
 
     const url = editandoId
-      ? `${API_URL}/api/usuarios/${editandoId}`
-      : `${API_URL}/api/usuarios`;
+      ? `/api/usuarios/${editandoId}`
+      : `/api/usuarios`;
 
     const method = editandoId ? 'PUT' : 'POST';
 
@@ -56,7 +56,7 @@ export default function AdminUsuarios() {
   };
 
   const handleDelete = async (id) => {
-    const res = await fetch(`${API_URL}/api/usuarios/${id}`, {
+    const res = await fetch(`/api/usuarios/${id}`, {
       method: 'DELETE',
       headers,
     });
