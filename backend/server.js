@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 const corsOptions = {
   origin: '*', // puedes cambiar esto por process.env.FRONTEND_URL para mayor seguridad
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
+  credentials: false,
 };
 
 app.use(cors(corsOptions));
