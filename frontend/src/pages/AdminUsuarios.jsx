@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
- 
+
 export default function AdminUsuarios() {
   const navigate = useNavigate();
 
@@ -8,6 +8,7 @@ export default function AdminUsuarios() {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
   const [editandoId, setEditandoId] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem('token');
 
   const headers = {
@@ -16,12 +17,17 @@ export default function AdminUsuarios() {
   };
 
   const cargarUsuarios = async () => {
-    const res = await fetch('zjulen.azurewebsites.net/api/usuarios', { headers });
+    const res = await fetch(`${API_URL}/api/usuarios`, { headers });
     const data = await res.json();
     setUsuarios(data);
   };
 
   useEffect(() => {
+    // Protección de ruta
+    if (!token) {
+      navigate('/login');
+      return;
+    }
     cargarUsuarios();
   }, []);
 
@@ -29,8 +35,8 @@ export default function AdminUsuarios() {
     e.preventDefault();
 
     const url = editandoId
-      ? `zjulen.azurewebsites.net/api/usuarios/${editandoId}`
-      : 'zjulen.azurewebsites.net/api/usuarios';
+      ? `${API_URL}/api/usuarios/${editandoId}`
+      : `${API_URL}/api/usuarios`;
 
     const method = editandoId ? 'PUT' : 'POST';
 
@@ -50,7 +56,7 @@ export default function AdminUsuarios() {
   };
 
   const handleDelete = async (id) => {
-    const res = await fetch(`zjulen.azurewebsites.net/api/usuarios/${id}`, {
+    const res = await fetch(`${API_URL}/api/usuarios/${id}`, {
       method: 'DELETE',
       headers,
     });
@@ -63,20 +69,18 @@ export default function AdminUsuarios() {
 
   const handleEdit = (usuario) => {
     setForm({ username: usuario.username, email: usuario.email, password: '' });
-    setEditandoId(usuario.id || usuario._id); // soporta Mongo o SQL
+    setEditandoId(usuario.id || usuario._id);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // ❌ Eliminar el token
-    navigate('/login'); // 🔁 Redirigir al login
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   return (
     <div>
       <h2>Administración de Usuarios</h2>
-      <button onClick={handleLogout}>
-        Cerrar sesión
-      </button>
+      <button onClick={handleLogout}>Cerrar sesión</button>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -100,7 +104,11 @@ export default function AdminUsuarios() {
           required={!editandoId}
         />
         <button type="submit">{editandoId ? 'Actualizar' : 'Crear'}</button>
-        {editandoId && <button onClick={() => { setEditandoId(null); setForm({ username: '', email: '', password: '' }); }}>Cancelar</button>}
+        {editandoId && (
+          <button onClick={() => { setEditandoId(null); setForm({ username: '', email: '', password: '' }); }}>
+            Cancelar
+          </button>
+        )}
       </form>
 
       <table border="1" cellPadding={10} style={{ marginTop: '20px' }}>

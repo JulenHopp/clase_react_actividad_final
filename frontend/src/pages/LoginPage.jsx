@@ -1,4 +1,3 @@
- // src/pages/LoginPage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -9,7 +8,10 @@ function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch('zjulen.azurewebsites.net/api/usuarios/login', {
+
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    const res = await fetch(`${API_URL}/api/usuarios/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -26,12 +28,12 @@ function LoginPage() {
 
   return (
     <>
-        <p>ejmplo_email_valido: julen@gmail.com, Contraseña: 1234</p>
-        <form onSubmit={handleLogin}>
+      <p>ejemplo_email_valido: julen@gmail.com, Contraseña: 1234</p>
+      <form onSubmit={handleLogin}>
         <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
         <input value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña" />
         <button type="submit">Iniciar sesión</button>
-        </form>
+      </form>
     </>
   );
 }
