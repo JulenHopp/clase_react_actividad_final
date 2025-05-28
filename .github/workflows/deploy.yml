@@ -55,6 +55,6 @@ jobs:
 
       - name: 🚀 Deploy Backend to Azure App Service via zipdeploy
         run: |
-          curl -X POST "https://${{ secrets.AZURE_WEBAPP_BACKEND_NAME }}.scm.azurewebsites.net/api/zipdeploy" \
-          -u "${{ secrets.AZURE_WEBAPP_BACKEND_PUBLISH_PROFILE }}" \
+          curl -X POST "https://zjulen.scm.azurewebsites.net/api/zipdeploy" \
+          -u "$zjulen:LaRtGuclxvwYBsqbKJ3RHiyvaxzraWlyhq0RCrCj1zLbDyT0QYTOeTRMHNVY" \
           --data-binary @"backend.zip"

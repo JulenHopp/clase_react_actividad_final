@@ -35,8 +35,8 @@ export default function AdminUsuarios() {
     e.preventDefault();
 
     const url = editandoId
-      ? `/api/usuarios/${editandoId}`
-      : `/api/usuarios`;
+      ? `https://zjulen.azurewebsites.net/api/usuarios/${editandoId}`
+      : `https://zjulen.azurewebsites.net/api/usuarios`;
 
     const method = editandoId ? 'PUT' : 'POST';
 
@@ -56,7 +56,7 @@ export default function AdminUsuarios() {
   };
 
   const handleDelete = async (id) => {
-    const res = await fetch(`/api/usuarios/${id}`, {
+    const res = await fetch(`https://zjulen.azurewebsites.net/api/usuarios/${id}`, {
       method: 'DELETE',
       headers,
     });
