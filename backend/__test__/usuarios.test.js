@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../server');
+const { app, server } = require('../server');
 
 describe('POST /api/usuarios/login', () => {
   test('devuelve un token si las credenciales son válidas', async () => {
@@ -24,5 +24,13 @@ describe('POST /api/usuarios/login', () => {
 
     expect([401, 404]).toContain(res.statusCode);
     expect(res.body).toHaveProperty('error');
+  });
+
+  afterAll((done) => {
+    if (server) {
+      server.close(done);
+    } else {
+      done();
+    }
   });
 });

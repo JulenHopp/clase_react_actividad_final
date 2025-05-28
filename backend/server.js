@@ -9,7 +9,6 @@ const usuariosRoutes = require('./routes/usuariosRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ CORS bien configurado
 const corsOptions = {
   origin: 'https://ambitious-bay-0af14c510.6.azurestaticapps.net',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -21,21 +20,20 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ Ruta de prueba
 app.get('/', (req, res) => {
   res.send('Backend corriendo en Azure 🚀');
 });
 
-// ✅ Documentación Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-// ✅ Rutas
 app.use('/api/usuarios', usuariosRoutes);
 
-// ✅ Servidor
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-  console.log(`Documentación en http://localhost:${PORT}/api-docs`);
-});
+let server;
 
-module.exports = app;
+if (process.env.NODE_ENV !== 'test') {
+  server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
+    console.log(`Documentación en http://localhost:${PORT}/api-docs`);
+  });
+}
+
+module.exports = { app, server };
