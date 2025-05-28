@@ -47,7 +47,6 @@ jobs:
 
       - name: 🧪 Run backend tests
         working-directory: ./backend
-          working-directory: ./backend
         env:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_PORT: ${{ secrets.DB_PORT }}
