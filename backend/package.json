@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "lint": "",
+    "lint": "eslint . --ext .js,.jsx",
     "test": ""
   },
   "author": "",
@@ -19,5 +19,9 @@
     "mssql": "^11.0.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.27.0",
+    "globals": "^16.2.0"
   }
 }
