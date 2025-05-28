@@ -128,7 +128,6 @@ router.delete('/:id', verifyToken, controller.deleteUsuario);
  *       400:
  *         description: Datos inválidos
  */
-router
 router.post('/login', controller.loginUsuario);
 
 module.exports = router;

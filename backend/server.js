@@ -9,13 +9,17 @@ const usuariosRoutes = require('./routes/usuariosRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+  // origin: 'https://ambitious-bay-0af14c510.6.azurestaticapps.net',
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  // credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-  res.send('Backend corriendo en Azure 🚀');
-});
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/usuarios', usuariosRoutes);
