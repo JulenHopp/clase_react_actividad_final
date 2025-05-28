@@ -17,17 +17,41 @@ jobs:
         with:
           node-version: '18'
 
+      ##########################
+      # FRONTEND
+      ##########################
+
       - name: 📦 Install frontend
         working-directory: ./frontend
         run: npm install
+
+      - name: 🧪 Run frontend tests
+        working-directory: ./frontend
+        run: npm run test
+
+      - name: 🧹 Run frontend lint
+        working-directory: ./frontend
+        run: npm run lint
 
       - name: 🔨 Build frontend
         working-directory: ./frontend
         run: npm run build
 
+      ##########################
+      # BACKEND
+      ##########################
+
       - name: 📦 Install backend
         working-directory: ./backend
         run: npm install
+
+      - name: 🧪 Run backend tests
+        working-directory: ./backend
+        run: npm run test
+
+      - name: 🧹 Run backend lint
+        working-directory: ./backend
+        run: npm run lint
 
       - name: ✅ Check backend
         working-directory: ./backend
